@@ -3,6 +3,42 @@
   
     
     <entry>
+      <title><![CDATA[Why I Build This Blog]]></title>
+      <url>/2017/05/13/Why-I-Build-This-Blog/</url>
+      <content type="html"><![CDATA[<h2 id="Why-blog？"><a href="#Why-blog？" class="headerlink" title="Why blog？"></a>Why blog？</h2><ul>
+<li>开源大法好</li>
+<li>用自己的方式写在个人的成长过程，不只是0和1，也有生活</li>
+<li>自学过程中有太多的坑，太多的弯路，把我的毒代码留给别人</li>
+<li>作为一个发泄的地方</li>
+<li>在网络空间占有一席之位</li>
+<li>发表自己对某中东西的看法</li>
+</ul>
+<p>引用我的偶像的一句话<br><blockquote><p>Talk is cheap. Show me the code.</p>
+<footer><strong>Linus 2000-08-25</strong><cite><a href="https://lkml.org/lkml/2000/8/25/132" target="_blank" rel="external">----A reply in Email</a></cite></footer></blockquote></p>
+<h2 id="目前"><a href="#目前" class="headerlink" title="目前"></a>目前</h2><h3 id=""><a href="#" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-6-20</p>
+</blockquote></h3><p>拥有第一台个人电脑</p>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-9-2</p>
+</blockquote></h3><p>进入大学</p>
+<h3 id="-2"><a href="#-2" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-7-.</p>
+</blockquote></h3><p>接触第一个编程语言: Python</p>
+<h3 id="-3"><a href="#-3" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-9-2</p>
+</blockquote></h3><p>进入大学</p>
+<h3 id="-4"><a href="#-4" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2017-5-13</p>
+</blockquote></h3><p>写第一篇博客</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><blockquote class="pullquote"><p><strong>人生苦短，我用Python</strong></p>
+</blockquote>
+]]></content>
+      
+        
+        <tags>
+            
+            <tag> set-off </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>/2017/05/11/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>

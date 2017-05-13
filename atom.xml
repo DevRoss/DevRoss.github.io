@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-05-11T12:17:33.630Z</updated>
+  <updated>2017-05-13T08:48:11.819Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Why I Build This Blog</title>
+    <link href="http://yoursite.com/2017/05/13/Why-I-Build-This-Blog/"/>
+    <id>http://yoursite.com/2017/05/13/Why-I-Build-This-Blog/</id>
+    <published>2017-05-13T08:48:11.819Z</published>
+    <updated>2017-05-13T08:48:11.819Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Why-blog？"><a href="#Why-blog？" class="headerlink" title="Why blog？"></a>Why blog？</h2><ul>
+<li>开源大法好</li>
+<li>用自己的方式写在个人的成长过程，不只是0和1，也有生活</li>
+<li>自学过程中有太多的坑，太多的弯路，把我的毒代码留给别人</li>
+<li>作为一个发泄的地方</li>
+<li>在网络空间占有一席之位</li>
+<li>发表自己对某中东西的看法</li>
+</ul>
+<p>引用我的偶像的一句话<br><blockquote><p>Talk is cheap. Show me the code.</p>
+<footer><strong>Linus 2000-08-25</strong><cite><a href="https://lkml.org/lkml/2000/8/25/132" target="_blank" rel="external">----A reply in Email</a></cite></footer></blockquote></p>
+<h2 id="目前"><a href="#目前" class="headerlink" title="目前"></a>目前</h2><h3 id=""><a href="#" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-6-20</p>
+</blockquote></h3><p>拥有第一台个人电脑</p>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-9-2</p>
+</blockquote></h3><p>进入大学</p>
+<h3 id="-2"><a href="#-2" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-7-.</p>
+</blockquote></h3><p>接触第一个编程语言: Python</p>
+<h3 id="-3"><a href="#-3" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-9-2</p>
+</blockquote></h3><p>进入大学</p>
+<h3 id="-4"><a href="#-4" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2017-5-13</p>
+</blockquote></h3><p>写第一篇博客</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><blockquote class="pullquote"><p><strong>人生苦短，我用Python</strong></p>
+</blockquote>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Why-blog？&quot;&gt;&lt;a href=&quot;#Why-blog？&quot; class=&quot;headerlink&quot; title=&quot;Why blog？&quot;&gt;&lt;/a&gt;Why blog？&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;开源大法好&lt;/li&gt;
+&lt;li&gt;用自己的方式写在个人的成长过程，不只是0和
+    
+    </summary>
+    
+    
+      <category term="set-off" scheme="http://yoursite.com/tags/set-off/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
