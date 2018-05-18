@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Playground</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://tofun.selfcoding.cn/"/>
+  <updated>2018-05-18T05:16:46.833Z</updated>
+  <id>http://tofun.selfcoding.cn/</id>
+  
+  <author>
+    <name>Ross</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python-文件中有非UTF-8字符的处理方法</title>
+    <link href="http://tofun.selfcoding.cn/2018/05/18/Python-%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9C%89%E9%9D%9EUTF-8%E5%AD%97%E7%AC%A6%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/"/>
+    <id>http://tofun.selfcoding.cn/2018/05/18/Python-文件中有非UTF-8字符的处理方法/</id>
+    <published>2018-05-18T04:39:20.000Z</published>
+    <updated>2018-05-18T05:16:46.833Z</updated>
+    
+    <content type="html"><![CDATA[<p>用Python读取含有含有非UTF-8的UTF-8文件</p><a id="more"></a><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>自然语言处理中，某些语料库可能会含有不干净的字符，例如GBK混进了UTF-8中，使得Python程序读取的时候会抛出编码错误，下面介绍如何来处理。</p><h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><p>读取时候遇到编码错误通常会抛出<u><strong>UnicodeDecodeError</strong></u></p><h2 id="常用处理方法一：忽略"><a href="#常用处理方法一：忽略" class="headerlink" title="常用处理方法一：忽略"></a>常用处理方法一：忽略</h2><pre><code class="Python">with open(&#39;somepath&#39;, &#39;r&#39;) as fp:    line = fp.read()    line = line.decode(&#39;utf-8&#39;, errors=&#39;ignore&#39;) # 或者with open(&#39;somepath&#39;, &#39;r&#39;, errors=&#39;ignore&#39;) as fp:    for line in fp:        # do something</code></pre><p>这样会忽略有编码错误的行，对数据的丢失率大。</p><h2 id="常用处理方法二：替换"><a href="#常用处理方法二：替换" class="headerlink" title="常用处理方法二：替换"></a>常用处理方法二：替换</h2><pre><code class="python">with open(&#39;somepath&#39;, &#39;r&#39;) as fp:    line = fp.read()    line = line.decode(&#39;utf-8&#39;, errors=&#39;replace&#39;) # 或者with open(&#39;somepath&#39;, &#39;r&#39;, errors=&#39;replace&#39;) as fp:    for line in fp:        # do something</code></pre><p>这种方法会使用’?’来替换有编码错误的字，对数据的丢失率较小。</p><p>还有其他处理方法，官方文档的 <a href="https://docs.python.org/3/library/functions.html#open" target="_blank" rel="noopener">传送门</a>，可以根据自己的需求来调用。</p><p>下面是引用经过翻译的一译Python3.5.2<a href="https://yiyibooks.cn/xx/python_352/library/functions.html" target="_blank" rel="noopener">文档</a></p><ul><li><em>参数 errors</em>是一个可选字符串，指定如何处理编码和解码错误 - 这不能在二进制模式下使用。虽然使用<a href="https://yiyibooks.cn/__trs__/xx/python_352/library/codecs.html#codecs.register_error" target="_blank" rel="noopener"><code>codecs.register_error()</code></a>注册的任何错误处理名称也有效，但仍提供了多种标准错误处理程序（在<a href="https://yiyibooks.cn/__trs__/xx/python_352/library/codecs.html#error-handlers" target="_blank" rel="noopener">错误处理程序</a>下列出）。标准名称包括：<ul><li><code>&#39;strict&#39;</code>引发<a href="https://yiyibooks.cn/__trs__/xx/python_352/library/exceptions.html#ValueError" target="_blank" rel="noopener"><code>ValueError</code></a>例外，如果存在编码错误。默认值<code>None</code>具有相同的效果。</li><li><code>&#39;ignore&#39;</code>忽略错误。请注意，忽略编码错误可能会导致数据丢失。</li><li><code>&#39;replace&#39;</code>会导致替换标记（例如<code>&#39;？&#39;</code>）插入到存在格式错误的数据的位置。</li><li><code>&#39;surrogateescape&#39;</code>将表示任何不正确的字节，作为从U DC80到U DCFF范围内的Unicode私人使用区域中的代码点。当写入数据时使用<code>surrogateescape</code>错误处理程序时，这些专用代码点将被转回相同的字节。这对于处理未知编码中的文件很有用。</li><li>仅当写入文件时，才支持<code>&#39;xmlcharrefreplace&#39;</code>。编码不支持的字符将替换为相应的<code>XML字符引用</code></li><li><code>&#39;backslashreplace&#39;</code>通过Python的反斜杠转义序列替换格式错误的数据。</li><li><code>&#39;namereplace&#39;</code>（也仅在编写时支持）用<code>\ N {...}</code>转义序列替换不支持的字符。</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用Python读取含有含有非UTF-8的UTF-8文件&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/tags/Python/"/>
+    
+      <category term="文件" scheme="http://tofun.selfcoding.cn/tags/%E6%96%87%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Ubuntu17.04配置Tensorflow-gpu环境</title>
+    <link href="http://tofun.selfcoding.cn/2017/08/03/Ubuntu17-04%E9%85%8D%E7%BD%AETensorflow-gpu%E7%8E%AF%E5%A2%83/"/>
+    <id>http://tofun.selfcoding.cn/2017/08/03/Ubuntu17-04配置Tensorflow-gpu环境/</id>
+    <published>2017-08-03T11:55:27.000Z</published>
+    <updated>2017-08-03T14:18:22.949Z</updated>
+    
+    <content type="html"><![CDATA[<p>从安装Nvidia驱动到成功运行tensorflow-gpu<br><a id="more"></a></p><p>目前Windows环境下不支持python2.7 的tensorflow,而<a href="https://github.com/tensorflow/models/" target="_blank" rel="noopener">TensorflowModel</a> 上object detection API, 不兼容python3.x的tensorflow，多次运行报错的情况下，最终放弃Windows，投靠Ubuntu。<br>博主不怎么玩Linux，配置过程中遇到了很多坑。都是泪。。。</p><hr><p>本人环境</p><ul><li>i5 6300hq</li><li>Nvidia GTX 960M</li></ul><h1 id="主要流程"><a href="#主要流程" class="headerlink" title="主要流程"></a>主要流程</h1><ul><li>安装相应的Nvidia驱动</li><li>下载安装CUDA8.0</li><li>下载配置cuDNN5.1</li><li>配置环境变量</li><li>测试运行tensorflow-gpu</li></ul><h1 id="Nvidia驱动"><a href="#Nvidia驱动" class="headerlink" title="Nvidia驱动"></a>Nvidia驱动</h1><p><strong>关闭Secure Boot</strong><br><strong>关闭Secure Boot</strong><br><strong>关闭Secure Boot</strong><br>不然安装后会login loop，才进这个坑多次，最后才知道要关闭Secure Boot</p><ol><li>添加ppa源<pre><code class="shell">sudo add-apt-repository ppa:graphics-drivers/ppasudo apt-get update</code></pre></li><li><p>安装相应的驱动版本<br>查看支持的驱动</p><pre><code class="shell"> ross@HP:~$ ubuntu-drivers devices == cpu-microcode.py == driver   : intel-microcode - distro non-free == /sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0 == model    : GM107M [GeForce GTX 960M] vendor   : NVIDIA Corporation modalias : pci:v000010DEd0000139Bsv0000103Csd00008257bc03sc02i00 driver   : nvidia-381 - third-party free driver   : nvidia-375 - third-party free driver   : nvidia-384 - third-party free recommended driver   : nvidia-378 - third-party free driver   : xserver-xorg-video-nouveau - distro free builtin</code></pre></li><li><p>安装推荐的版本<br> 我就安装 384</p><pre><code> sudo apt-get install nvidia-384（换成你的版本）</code></pre><p> 等待安装完后重启一次。</p><pre><code class="shell"> ross@HP:~$ nvidia-smi Thu Aug  3 20:30:10 2017 +-----------------------------------------------------------------------------+ | NVIDIA-SMI 384.59                 Driver Version: 384.59                    | |-------------------------------+----------------------+----------------------+ | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC | | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. | |===============================+======================+======================| |   0  GeForce GTX 960M    Off  | 00000000:01:00.0 Off |                  N/A | | N/A   55C    P0    N/A /  N/A |    392MiB /  2000MiB |      0%      Default | +-------------------------------+----------------------+----------------------+ +-----------------------------------------------------------------------------+ | Processes:                                                       GPU Memory | |  GPU       PID  Type  Process name                               Usage      | |=============================================================================| |    0      1229    G   /usr/lib/xorg/Xorg                              24MiB | |    0      1620    G   /usr/lib/xorg/Xorg                             165MiB | |    0     11255    G   ...el-token=xxxxxxxxxxxxxxxxxxxxx               83MiB | |    0     14770    G   /usr/bin/gnome-shell                            87MiB | +-----------------------------------------------------------------------------+</code></pre><p>相应的版本驱动信息表示成功。</p></li></ol><h1 id="CUDA8-0"><a href="#CUDA8-0" class="headerlink" title="CUDA8.0"></a>CUDA8.0</h1><pre><code class="shell">apt-get install nvidia-cuda-toolkit</code></pre><p>用apt安装后路径会有点不同，它会放在/usr/local 中，而不是/usr/local/cuda中</p><p>所以我们要在/usr/local中新建一个cuda的文件夹</p><pre><code class="shell">cd /usr/bin/cudamkdir cudaln -s /usr/local/bin/ /usr/local/cuda/binln -s /usr/local/include/ /usr/local/cuda/include</code></pre><h1 id="cuDNN-1"><a href="#cuDNN-1" class="headerlink" title="cuDNN.1"></a>cuDNN.1</h1><p>下载CUDA8.0版本的<a href="https://developer.nvidia.com/cudnn" target="_blank" rel="noopener">cuDNN v5.1 Library for Linux</a> (需要登录)</p><pre><code class="shell">tar xvzf cudnn-8.0-linux-x64-v5.1-ga.tgzsudo cp cuda/include/cudnn.h /usr/local/cuda/include# 先新建一个文件夹饭lib64文件mkdir /usr/local/cuda/lib64sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*</code></pre><h1 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h1><pre><code class="shell">gedit ~/.bashrc </code></pre><p>在文件末尾添加以下两行</p><pre><code class="shell">export LD_LIBRARY_PATH=&quot;$LD_LIBRARY_PATH:/usr/local/cuda/lib64&quot;export CUDA_HOME=/usr/local/cuda</code></pre><p>保存退出后激活一下</p><pre><code class="shell">source ~/.bashrc</code></pre><h1 id="tensorflow-gpu"><a href="#tensorflow-gpu" class="headerlink" title="tensorflow-gpu"></a>tensorflow-gpu</h1><pre><code class="shell">sudo pip install tensorflow-gpu</code></pre><p>如果遇到不能安装</p><pre><code class="shell">wget https://bootstrap.pypa.io/get-pip.pysudo python get-pip.pysudo pip install tensorflow-gpu</code></pre><p><code>python tensorflow-helloworldimport tensorflow as tfhello = tf.constant(&#39;Hello, TensorFlow!&#39;)sess = tf.Session()print(sess.run(hello))</code></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;从安装Nvidia驱动到成功运行tensorflow-gpu&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/categories/Python/"/>
+    
+      <category term="Linux" scheme="http://tofun.selfcoding.cn/categories/Python/Linux/"/>
+    
+      <category term="Tensorflow" scheme="http://tofun.selfcoding.cn/categories/Python/Linux/Tensorflow/"/>
+    
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/tags/Python/"/>
+    
+      <category term="Tensorflow" scheme="http://tofun.selfcoding.cn/tags/Tensorflow/"/>
+    
+      <category term="Ubuntu" scheme="http://tofun.selfcoding.cn/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Centos7 安装Python3.x</title>
+    <link href="http://tofun.selfcoding.cn/2017/07/24/Centos7-%E5%AE%89%E8%A3%85Python3-x/"/>
+    <id>http://tofun.selfcoding.cn/2017/07/24/Centos7-安装Python3-x/</id>
+    <published>2017-07-24T04:56:44.000Z</published>
+    <updated>2017-07-25T02:26:34.668Z</updated>
+    
+    <content type="html"><![CDATA[<p>配置Python2 和 Python3 共存<br><a id="more"></a></p><p><strong>高能提示，如果想要安装Scrapy，请先滚到底看下情况。</strong></p><h1 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h1><h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><p>一言不合就安装一堆</p><p> <code>yum groupinstall &#39;Development Tools&#39;</code><br> <code>yum install zlib-devel bzip2-devel openssl-devel ncurese-devel</code></p><h2 id="下载你需要的Python版本"><a href="#下载你需要的Python版本" class="headerlink" title="下载你需要的Python版本"></a>下载你需要的Python版本</h2><p><a href="https://www.python.org/downloads/source/" target="_blank" rel="noopener">Python</a></p><p>3.6：<a href="https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tar.xz" target="_blank" rel="noopener">https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tar.xz</a></p><h2 id="解压-编译"><a href="#解压-编译" class="headerlink" title="解压+编译"></a>解压+编译</h2><pre><code class="shell">tar -Jxvf Python-3.6.2.tar.xzcd Python-3.6.2./configuremake &amp;&amp; make install</code></pre><p>如果出现 <code>zipimport.ZipImportError: can&#39;t decompress data; zlib not available</code><br>安装 zlib相关的工具就好<br><code>yum install zlib*</code></p><h1 id="修改默认的Python和pip版本"><a href="#修改默认的Python和pip版本" class="headerlink" title="修改默认的Python和pip版本"></a>修改默认的Python和pip版本</h1><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><p>切换到 /usr/bin 目录，可以看见该目录下有<br><code>ll | grep python</code></p><p>看到</p><pre><code>lrwxrwxrwx.   1 root root          7 Jul 10 20:22 python -&gt; python2lrwxrwxrwx.   1 root root          9 Jul 10 20:22 python2 -&gt; python2.7-rwxr-xr-x.   1 root root       7136 Nov  6  2016 python2.7</code></pre><p>看到python 用软连接指向了python2，python2又软连接指向了python2.7<br>我们只需要修改python就可以。<br><code>whereis python3</code></p><pre><code>python3: /usr/local/bin/python3 /usr/local/bin/python3.6 /usr/local/bin/python3.6m /usr/local/bin/python3.6-config /usr/local/bin/python3.6m-config /usr/local/lib/python3.6</code></pre><p> <strong>/usr/local/bin/python3.6</strong> 是python3.6二进制执行文件<br>将软连接指向 python3.6 即可。</p><p>先删除原来的连接<br><code>[root@foobar bin]# rm /usr/bin/python</code><br>创建软连接<br><code>[root@foobar bin]# ln -s /usr/local/bin/python3.6 /usr/bin/python</code></p><p>现在默认的python为3.6版本</p><h2 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h2><p>先删除原来默认pip的软连接，原理和python一样。<br><code>[root@foobar bin]# whereis pip</code><br><code>pip: /usr/bin/pip /usr/bin/pip2.7 /usr/local/bin/pip3.6</code></p><p>所要做的是修改软连接，将其指向3.6的pip<br><code>[root@foobar bin]# rm /usr/bin/pip</code><br><code>ln -s /usr/local/bin/pip3.6 /usr/bin/pip</code></p><h2 id="更新yum相关设置"><a href="#更新yum相关设置" class="headerlink" title="更新yum相关设置"></a>更新yum相关设置</h2><p><code>[root@foobar bin]# vim /usr/bin/yum</code><br><code>[root@foobar bin]# vim /usr/libexec/urlgrabber-ext-down</code><br>分别将第一行的 <strong>#!/usr/bin/python</strong> 改成 <strong>#!/usr/bin/python2</strong></p><h1 id="确认"><a href="#确认" class="headerlink" title="确认"></a>确认</h1><pre><code>[root@foobar bin]# pip install -U pipRequirement already up-to-date: pip in /usr/local/lib/python3.6/site-packages[root@foobar bin]# python --versionPython 3.6.2[root@foobar bin]# pip --versionpip 9.0.1 from /usr/local/lib/python3.6/site-packages (python 3.6)[root@foobar bin]# python2 --versionPython 2.7.5[root@foobar bin]# pip2 --versionpip 9.0.1 from /usr/lib/python2.7/site-packages (python 2.7)</code></pre><h1 id="第二天"><a href="#第二天" class="headerlink" title="第二天"></a>第二天</h1><p>博主第二天哭着回来，被各种报错搞崩心态</p><p>这种方式在安装scrapy的时候有问题，各种ssl问题，报错很多。<br>还是建议用<a href="https://conda.io/miniconda.html" target="_blank" rel="noopener">Miniconda</a>,或者是<a href="https://www.continuum.io/" target="_blank" rel="noopener">Anaconda</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;配置Python2 和 Python3 共存&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://tofun.selfcoding.cn/categories/Linux/"/>
+    
+    
+      <category term="Centos7" scheme="http://tofun.selfcoding.cn/tags/Centos7/"/>
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>用cx_freeze打包scrapy</title>
+    <link href="http://tofun.selfcoding.cn/2017/07/23/%E7%94%A8cx-freeze%E6%89%93%E5%8C%85scrapy/"/>
+    <id>http://tofun.selfcoding.cn/2017/07/23/用cx-freeze打包scrapy/</id>
+    <published>2017-07-23T06:08:58.000Z</published>
+    <updated>2017-08-03T11:50:17.575Z</updated>
+    
+    <content type="html"><![CDATA[<p>坑爹Windows环境配置，以及setup脚本的编写<br><a id="more"></a></p><h1 id="安装cx-freeze"><a href="#安装cx-freeze" class="headerlink" title="安装cx_freeze"></a>安装cx_freeze</h1><p><strong>先说说环境</strong></p><ul><li>Windows10</li><li>python3.5 安装在 C:\Python35</li><li><a href="https://anthony-tuininga.github.io/cx_Freeze/" target="_blank" rel="noopener">cx_freeze 5.0.2</a></li></ul><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><ul><li>先安装最新版 cx_Freeze</li></ul><pre><code>python -m pip install cx_Freeze --upgrade</code></pre><ul><li>确认安装<br>在命令行输入 <code>cxfreeze -h</code></li></ul><p>此时没有出现以下回应<br><img src="用cx_freeze打包scrapy/cmd_shot.png" alt="screenshot"></p><p>是因为还有没有生成.bat文件</p><p>切换到 C:\Python35\Scripts，发现目录下有个<strong>cxfreeze-postinstall</strong>，这是一个python执行文件，打开cmd， </p><p>输入 <code>python cxfreeze-postinstall</code></p><p>之后再输入一次<code>cxfreeze -h</code></p><p>这次出现上图的提示，说明安装成功</p><h1 id="编写-setup脚本"><a href="#编写-setup脚本" class="headerlink" title="编写 setup脚本"></a>编写 setup脚本</h1><p><a href="http://cx-freeze.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener">文档</a></p><pre><code class="python">import osimport platformimport sysfrom cx_Freeze import setup, Executable# 设置环境变量如果你遇到你写的模块找不到路径，添加上去我的app叫 foosys.path.append(os.path.join(os.path.abspath(os.path.curdir), &#39;foo&#39;))os.environ[&#39;TCL_LIBRARY&#39;] = r&#39;C:\Python35\tcl\tcl8.6&#39;os.environ[&#39;TK_LIBRARY&#39;] = r&#39;C:\Python35\tcl\tk8.6&#39;packages = [&quot;os&quot;, &quot;scrapy&quot;, &quot;PIL&quot;, &quot;platform&quot;, &quot;re&quot;, &quot;six&quot;, &quot;tool&quot;, &quot;lxml&quot;, &#39;amazon_orders.tool&#39;]includes = [&#39;amazon_orders.tool&#39;]build_exe_options = {&quot;packages&quot;: packages,                     &quot;includes&quot;: includes,                     &quot;excludes&quot;: []}base = Noneif platform.system() == &#39;Windows&#39;:    base = &#39;Win32GUI&#39;exe = Executable(    # what to build    script=&quot;run.py&quot;,  # the name of your build_frame python script goes here    initScript=None,    base=base,  # if creating a GUI instead of a console app, type &quot;Win32GUI&quot;    targetName=&quot;amazon_crawl.exe&quot;,  # this is the name of the executable file)setup(    # the actual setup &amp; the definition of other misc. info    name=&quot;Amazon&quot;,    version=&quot;0.99&quot;,    description=&quot;Kiss my ass&quot;,    options={&quot;build_exe&quot;: build_exe_options},    author=&quot;Asshole&quot;,    executables=[exe])</code></pre><p>同目录下的run.py</p><pre><code class="python">import oscmd = &#39;scrapy crawl orders&#39;os.system(cmd)</code></pre><h1 id="解决报错"><a href="#解决报错" class="headerlink" title="解决报错"></a>解决报错</h1><blockquote><p>no module named Zope.interface error when using cx_Freeze</p></blockquote><p>在C:\Python35\Lib\site-packages\zope 下新建一个 <code>__init__.py</code>即可，原因是目录下没有 <code>__init__.py</code>解析器不会认为这是一个包。</p><hr><blockquote><p>KeyError: ‘TCL_Library’ 或者 KeyError: ‘TK_LIBRARY’</p></blockquote><p>在setup.py 中 加入</p><blockquote><p>os.environ[‘TCL_LIBRARY’] = r’C:\Python35\tcl\tcl8.6’<br>os.environ[‘TK_LIBRARY’] = r’C:\Python35\tcl\tk8.6’</p></blockquote><p>更多细节，请看 <a href="https://stackoverflow.com/questions/35533803/keyerror-tcl-library-when-i-use-cx-freeze" target="_blank" rel="noopener">https://stackoverflow.com/questions/35533803/keyerror-tcl-library-when-i-use-cx-freeze</a></p><hr><h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>最后我也不知道说什么好，被折磨得心好累。。。</p><p>如果遇到其他报错，欢迎提出。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;坑爹Windows环境配置，以及setup脚本的编写&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/tags/Python/"/>
+    
+      <category term="scrapy" scheme="http://tofun.selfcoding.cn/tags/scrapy/"/>
+    
+      <category term="cx_freeze" scheme="http://tofun.selfcoding.cn/tags/cx-freeze/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tensorflow的初次见面</title>
+    <link href="http://tofun.selfcoding.cn/2017/06/20/Tensorflow%E7%9A%84%E5%88%9D%E6%AC%A1%E8%A7%81%E9%9D%A2/"/>
+    <id>http://tofun.selfcoding.cn/2017/06/20/Tensorflow的初次见面/</id>
+    <published>2017-06-20T13:46:47.000Z</published>
+    <updated>2017-06-21T13:01:12.971Z</updated>
+    
+    <content type="html"><![CDATA[<p>Tensorflow入门笔记<br><a id="more"></a></p><p>安装我就省略了，网上有很多教程，没必要自己在写一次。如果有人需要，我也可以写一份。少废话，直接上官方链接</p><p><a href="https://www.tensorflow.org" target="_blank" rel="noopener">Tensorflow主页</a><br>以下内容参考官方文档<br><a href="https://www.tensorflow.org/programmers_guide/variables" target="_blank" rel="noopener">Develop-&gt;PROGRAMMER’S GUIDE-&gt;Variables: Creation, Initialization, Saving, and Loading</a></p><h1 id="Tensorflow的计算图"><a href="#Tensorflow的计算图" class="headerlink" title="Tensorflow的计算图"></a>Tensorflow的计算图</h1><p>引用<strong>Tensorflow 实战Google深度学习框架</strong>的话，Tensorflow 包含两个概念:tensor 和 flow，tensor（张量）表明其数据结构，flow表明其计算模型，也表达了张量之间通过计算相互转化的过程。</p><blockquote><p>TensorFlow 是一个编程系统, 使用图来表示计算任务. 图中的节点被称之为 op (operation 的缩写). 一个 op获得 0 个或多个 Tensor , 执行计算, 产生 0 个或多个 Tensor .</p></blockquote><p>如图，这个相加的op就是节点，const3和const4是Tensor</p><p><img src="https://www.tensorflow.org/images/getting_started_add.png" alt="add"></p><h1 id="变量：-声明，初始化，保存，读取"><a href="#变量：-声明，初始化，保存，读取" class="headerlink" title="变量： 声明，初始化，保存，读取"></a><a>变量： 声明，初始化，保存，读取</a></h1><p>文章引用的两个类</p><ul><li>The <a href="https://www.tensorflow.org/api_docs/python/tf/Variable" target="_blank" rel="noopener"><strong>tf.Variable</strong></a> class.</li><li>The <a href="https://www.tensorflow.org/api_docs/python/tf/train/Saver" target="_blank" rel="noopener"><strong>tf.train.Saver</strong></a> class.<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><strong>变量声明也是一种计算，变量只是一种特殊的tensor（张量）</strong><pre><code class="python"># 声明两个变量weights = tf.Variable(tf.random_normal([784, 200], stddev=0.35),                    name=&quot;weights&quot;)biases = tf.Variable(tf.zeros([200]), name=&quot;biases&quot;)</code></pre></li></ul><p>Tensorflow还支持在不同运算设备的运行不同的计算图<br>如果没有指明计算图，则使用Tensorflow默认的计算图，也就是tf</p><pre><code class="python"># 放在CPU上的变量with tf.device(&quot;/cpu:0&quot;):  v = tf.Variable(...)# 放在GPU上的变量with tf.device(&quot;/gpu:0&quot;):  v = tf.Variable(...)# 还可以放在某个任务中.with tf.device(&quot;/job:ps/task:7&quot;):  v = tf.Variable(...)  </code></pre><p>可以在参数中添加tf.train.replica_device_setter=True，当在一个设备运行失败时，可以自动切换到兼容的其他设备，可以踩少很多坑。</p><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>在运行之前一定要将变量初始化，最简单的方法就是将所有变量初始化。Tensorflow也提供了相关方法：  tf.initialize_all_variables()，文档中是tf.global_variables_initializer()，从名字看出是初始化全部的全局变量，而使用tf.initialize_all_variables()初始化所有变量。</p><pre><code class="python"># Create two variables.weights = tf.Variable(tf.random_normal([784, 200], stddev=0.35),                      name=&quot;weights&quot;)biases = tf.Variable(tf.zeros([200]), name=&quot;biases&quot;)...# 添加一个初始化操作.init_op = tf.global_variables_initializer()# Later, when launching the modelwith tf.Session() as sess:  # 运行初始化操作.  sess.run(init_op)  ...  # Use the model  ...</code></pre><p>使用以上方法的另外好处是自动处理变量间的依赖关系，自己手动初始化的话要注意初始化的先后。如：</p><pre><code class="python"># Create a variable with a random value.weights = tf.Variable(tf.random_normal([784, 200], stddev=0.35),                      name=&quot;weights&quot;)# Create another variable with the same value as &#39;weights&#39;.w2 = tf.Variable(weights.initialized_value(), name=&quot;w2&quot;)# Create another variable with twice the value of &#39;weights&#39;w_twice = tf.Variable(weights.initialized_value() * 2.0, name=&quot;w_twice&quot;)</code></pre><p>变量w2 和 w_twice依赖于weight。</p><h2 id="保存-和-读取"><a href="#保存-和-读取" class="headerlink" title="保存 和 读取"></a>保存 和 读取</h2><p>保存和读取可以使用<strong>tf.train.Saver</strong> 这个对象<br>可以将训练完的变量保存，它可以保存或者读取一个计算图，或者某个计算图中的某个变量的list。saver对象提供了运行这些操作的方法，指定一个路径供checkpoint file读写。</p><p>特别的，如果恢复一个没有计算图的checkpoint，首先要从<strong>meta graph文件</strong>中导入计算图，由<a href="https://www.tensorflow.org/api_docs/python/tf/train/import_meta_graph" target="_blank" rel="noopener">tf.train.import_meta_graph</a>完成。</p><h3 id="Checkpoint-Files"><a href="#Checkpoint-Files" class="headerlink" title="Checkpoint Files"></a>Checkpoint Files</h3><p>变量保存在二进制文件中，包含着一个变量名和tensor值的map。</p><p>当你声明一个<strong>Saver</strong>对象，你可以选择性地指定一个或多个在checkpoint中的变量的名字，默认是使用<a href="https://www.github.com/tensorflow/tensorflow/blob/r1.2/tensorflow/python/tools/inspect_checkpoint.py" target="_blank" rel="noopener"><strong>tf.Variable.name</strong></a>中的每一个变量。</p><h3 id="变量的保存"><a href="#变量的保存" class="headerlink" title="变量的保存"></a>变量的保存</h3><p>用<strong>tf.train.Saver()</strong> 声明一个管理模型中所有变量的Saver对象。</p><pre><code class="python"># Create some variables.v1 = tf.Variable(..., name=&quot;v1&quot;)v2 = tf.Variable(..., name=&quot;v2&quot;)...# Add an op to initialize the variables.init_op = tf.global_variables_initializer()# Add ops to save and restore all the variables.saver = tf.train.Saver()# Later, launch the model, initialize the variables, do some work, save the# variables to disk.# 之后，运行模型，初始化变量，运行些操作，最后将变量保存在磁盘中。with tf.Session() as sess:  sess.run(init_op)  # Do some work with the model.  ..  # Save the variables to disk.  save_path = saver.save(sess, &quot;/tmp/model.ckpt&quot;)  print(&quot;Model saved in file: %s&quot; % save_path)</code></pre><h3 id="变量的恢复"><a href="#变量的恢复" class="headerlink" title="变量的恢复"></a>变量的恢复</h3><p>同样用<strong>Saver</strong>对象来恢复变量。当你从文件中恢复变量，你不需要再对他进行初始化操作。</p><pre><code class="python"># Create some variables.v1 = tf.Variable(..., name=&quot;v1&quot;)v2 = tf.Variable(..., name=&quot;v2&quot;)...# Add ops to save and restore all the variables.saver = tf.train.Saver()# Later, launch the model, use the saver to restore variables from disk, and# do some work with the model.with tf.Session() as sess:  # Restore variables from disk.  saver.restore(sess, &quot;/tmp/model.ckpt&quot;)  print(&quot;Model restored.&quot;)  # Do some work with the model  ...</code></pre><p>如果没有对<strong>tf.train.Saver()</strong> 这个对象传入任何参数，它会处理计算图中所有变量。每个变量名都会使用变量声明的时候的名字。</p><p>有时候为checkpoint files明确指定变量名是非常有用的。例如，你也许会用’weight’来训练每个变量，这个变量恢复的时候你也许会使用’params’来命名他。</p><p>你可以通过向<strong>tf.train.Saver()</strong> 传入一个python字典来简单粗暴地指定名字和需要保存的变量。</p><blockquote><p>如果有需要的话，你可以声明多个saver对象，传入不同的参数来保存，用于恢复成不同的变量。相同的变量可以传入到多个saver对象中， 当<strong>restore()</strong> 方法被使用的时候value才会改变。</p></blockquote><blockquote><p>如果你在变量初始化之前保存了变量，你在恢复之后将变量初始化。详细请看<a href="https://www.tensorflow.org/api_docs/python/tf/variables_initializer" target="_blank" rel="noopener">tf.variables_initializer</a>。</p></blockquote><pre><code class="python"># Create some variables.v1 = tf.Variable(..., name=&quot;v1&quot;)v2 = tf.Variable(..., name=&quot;v2&quot;)...# Add ops to save and restore only &#39;v2&#39; using the name &quot;my_v2&quot;saver = tf.train.Saver({&quot;my_v2&quot;: v2})# Use the saver object normally after that....</code></pre><h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>Tensorflow是我接触的第一个机器学习框架，目前还在学习一些非常基础的东西，所以写出来的可能有错，如果发现有错误，我很高兴你能指出我的错误。</p><p>对于像我这样的初学者来说，看中文档已经是很辛苦了，所以自己翻译一篇看看，结果发现官方写的很精彩，我翻译的过程也学到了很多。</p><p>门槛是有的，Tensorflow对数学的要求也比较高，下学期才学概率论和线性代数，在学习Tensorflow的过程中只能自学一下，离写个像样的模型还有很长的路要走。</p><p>自己开的坑，跪着也要跳下去。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Tensorflow入门笔记&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/categories/Python/"/>
+    
+      <category term="机器学习" scheme="http://tofun.selfcoding.cn/categories/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Tensorflow" scheme="http://tofun.selfcoding.cn/categories/Python/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Tensorflow/"/>
+    
+    
+      <category term="python" scheme="http://tofun.selfcoding.cn/tags/python/"/>
+    
+      <category term="Tensorflow" scheme="http://tofun.selfcoding.cn/tags/Tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>KMP算法</title>
+    <link href="http://tofun.selfcoding.cn/2017/06/20/KMP%E7%AE%97%E6%B3%95/"/>
+    <id>http://tofun.selfcoding.cn/2017/06/20/KMP算法/</id>
+    <published>2017-06-20T13:37:35.000Z</published>
+    <updated>2017-06-20T13:41:21.103Z</updated>
+    
+    <content type="html"><![CDATA[<p>字符串匹配较快的算法<br><a id="more"></a></p><h3 id="时间复杂度O-n"><a href="#时间复杂度O-n" class="headerlink" title="时间复杂度O(n)"></a>时间复杂度O(n)</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="c">void get_next(SString T,int next[]){    int i=1;    int j =0;    next[1] = 0;    while (i &lt; T[0]) {        if (j == 0 || T[i] == T[j]) {  //第一个或者是匹配成功            i++;j++;            next[i] = j;        } else            j = next[j];  //匹配不成功时，j退回next[j]    }}int Index_KMP(SString S,SString T,int pos){    int next[MAXSTRLEN];    int i =1;    int j = 1;    get_next(T, next);    while (j &lt;= T[0] &amp;&amp; i &lt;= S[0]) { //第一个或者是匹配成功        if (j == 0 || T[j] == S[i]) {            i++;            j++;        } else{            j = next[j];   ////匹配不成功时，j退回next[j]        }    }    if(j&gt;T[0]) return (i - T[0]);    else return 0;}</code></pre><table><thead><tr><th>i</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr></thead><tbody><tr><td>pattern</td><td>a</td><td>b</td><td>c</td><td>a</td><td>b</td><td>a</td><td>d</td></tr><tr><td>next[i]</td><td>0</td><td>1</td><td>1</td><td>1</td><td>2</td><td>3</td><td>2</td></tr></tbody></table><p>next[1] 一定是0<br>next[2] 一定是1</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;字符串匹配较快的算法&lt;br&gt;
+    
+    </summary>
+    
+      <category term="C" scheme="http://tofun.selfcoding.cn/categories/C/"/>
+    
+    
+      <category term="C" scheme="http://tofun.selfcoding.cn/tags/C/"/>
+    
+      <category term="KMP" scheme="http://tofun.selfcoding.cn/tags/KMP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深度遍历和广度遍历</title>
+    <link href="http://tofun.selfcoding.cn/2017/06/07/%E6%B7%B1%E5%BA%A6%E9%81%8D%E5%8E%86%E5%92%8C%E5%B9%BF%E5%BA%A6%E9%81%8D%E5%8E%86/"/>
+    <id>http://tofun.selfcoding.cn/2017/06/07/深度遍历和广度遍历/</id>
+    <published>2017-06-07T14:01:16.000Z</published>
+    <updated>2017-06-08T02:32:00.880Z</updated>
+    
+    <content type="html"><![CDATA[<p>图的遍历<br><a id="more"></a></p><h2 id="深度优先遍历关键代码"><a href="#深度优先遍历关键代码" class="headerlink" title="深度优先遍历关键代码"></a>深度优先遍历关键代码</h2><p>关键：递归算法</p><pre><code>void DFS(ALGraph G, int v) {/* 从第v个顶点出发递归地深度优先遍历图G。算法7.5 *//* 设置访问标志为TRUE(已访问) *//* 访问第v个顶点 *//* 对v的尚未访问的邻接点w递归调用DFS */    if (visited[v]) return;    visited[v] = 1;    for (int w = FirstAdjVex(G, G.vertices[v].data);         w &gt;= 0; w = NextAdjVex(G, G.vertices[v].data, G.vertices[w].data)) {        DFS(G, w);        VisitFunc(G.vertices[v].data);    }}</code></pre><h2 id="广度优先度遍历关键代码"><a href="#广度优先度遍历关键代码" class="headerlink" title="广度优先度遍历关键代码"></a>广度优先度遍历关键代码</h2><p>如果所有边的权值为1，找到的则是最短路径</p><p>关键：队列的应用</p><pre><code>void BFS(ALGraph G) {    queue &lt;int&gt; q;    int pop;    for (int i = 0; i &lt;G.vexnum; ++i) {        visited[i] = 0;    }    for (int j = 0; j &lt; G.vexnum; ++j) {        if (!visited[j]) {            q.push(j);            VisitFunc(G.vertices[q.front()].data);            visited[j] = 1;            while (!q.empty()) {                pop = q.front();                q.pop();   // 保存出队的元素                for (int k = FirstAdjVex(G, G.vertices[pop].data);                     k &gt;= 0; k = NextAdjVex(G, G.vertices[pop].data, G.vertices[k].data)) {                    if (!visited[k])                    {                        VisitFunc(G.vertices[k].data);                        visited[k] =1;                        q.push(k);                    }                }            }        }    }}</code></pre><h2 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h2><pre><code>#include&quot;string.h&quot;#include&quot;malloc.h&quot; /* malloc()等 */#include&quot;stdio.h&quot; /* EOF(=^Z或F6),NULL */#include&quot;stdlib.h&quot; /* exit() */#include &quot;queue&quot;using namespace std;typedef int InfoType; /* 顶点权值类型 */#define MAX_NAME 3 /* 顶点字符串的最大长度+1 */typedef char VertexType[MAX_NAME]; /* 字符串类型 *//*图的邻接表存储表示 */#define MAX_VERTEX_NUM 20typedef enum {    DG, DN, AG, AN} GraphKind; /* {有向图,有向网,无向图,无向网} */typedef struct ArcNode {    int adjvex; /* 该弧所指向的顶点的位置 */    struct ArcNode *nextarc; /* 指向下一条弧的指针 */    InfoType *info; /* 网的权值指针） */} ArcNode; /* 表结点 */typedef struct {    VertexType data; /* 顶点信息 */    ArcNode *firstarc; /* 第一个表结点的地址,指向第一条依附该顶点的弧的指针 */} VNode, AdjList[MAX_VERTEX_NUM]; /* 头结点 */typedef struct {    AdjList vertices;    int vexnum, arcnum; /* 图的当前顶点数和弧数 */    int kind; /* 图的种类标志 */} ALGraph;int LocateVex(ALGraph G, VertexType u) { /* 初始条件: 图G存在,u和G中顶点有相同特征 *//* 操作结果: 若G中存在顶点u,则返回该顶点在图中位置;否则返回-1 */    int i;    for (i = 0; i &lt; G.vexnum; ++i)        if (strcmp(u, G.vertices[i].data) == 0)            return i;    return -1;}void CreateGraph(ALGraph *G) { /* 采用邻接表存储结构,构造没有相关信息的图G(用一个函数构造4种图) */    int i, j, k;    int w; /* 权值 */    VertexType va, vb;    ArcNode *p;    //printf(&quot;Enter the type of map:(0~3): &quot;);    scanf(&quot;%d&quot;, &amp;(*G).kind);    //printf(&quot;Enter Vertex number,Arc number: &quot;);    scanf(&quot;%d%d&quot;, &amp;(*G).vexnum, &amp;(*G).arcnum);    //printf(&quot;Enter %d Vertex :\n&quot;,(*G).vexnum);    for (i = 0; i &lt; (*G).vexnum; ++i) /* 构造顶点向量 */    {        scanf(&quot;%s&quot;, (*G).vertices[i].data);        (*G).vertices[i].firstarc = NULL;    }    //if((*G).kind==1||(*G).kind==3) /* 网 */    //  printf(&quot;Enter order every arc weight,head and tail (Takes the gap by the blank space ):\n&quot;);    //else /* 图 */    //  printf(&quot;Enter order every arc head and tail (Takes the gap by the blank space ):\n&quot;);    for (k = 0; k &lt; (*G).arcnum; ++k) /* 构造表结点链表 */    {        if ((*G).kind == 1 || (*G).kind == 3) /* 网 */            scanf(&quot;%d%s%s&quot;, &amp;w, va, vb);        else /* 图 */            scanf(&quot;%s%s&quot;, va, vb);        i = LocateVex(*G, va); /* 弧尾 */        j = LocateVex(*G, vb); /* 弧头 */        p = (ArcNode *) malloc(sizeof(ArcNode));        p-&gt;adjvex = j;        if ((*G).kind == 1 || (*G).kind == 3) /* 网 */        {            p-&gt;info = (int *) malloc(sizeof(int));            *(p-&gt;info) = w;        } else            p-&gt;info = NULL; /* 图 */        p-&gt;nextarc = (*G).vertices[i].firstarc; /* 插在表头 */        (*G).vertices[i].firstarc = p;        if ((*G).kind &gt;= 2) /* 无向图或网,产生第二个表结点 */        {            p = (ArcNode *) malloc(sizeof(ArcNode));            p-&gt;adjvex = i;            if ((*G).kind == 3) /* 无向网 */            {                p-&gt;info = (int *) malloc(sizeof(int));                *(p-&gt;info) = w;            } else                p-&gt;info = NULL; /* 无向图 */            p-&gt;nextarc = (*G).vertices[j].firstarc; /* 插在表头 */            (*G).vertices[j].firstarc = p;        }    }}VertexType *GetVex(ALGraph G, int v) { /* 初始条件: 图G存在,v是G中某个顶点的序号。操作结果: 返回v的值 */    if (v &gt;= G.vexnum || v &lt; 0)        exit(0);    return &amp;G.vertices[v].data;}int FirstAdjVex(ALGraph G, VertexType v) { /* 初始条件: 图G存在,v是G中某个顶点 *//* 操作结果: 返回v的第一个邻接顶点的序号。若顶点在G中没有邻接顶点,则返回-1 */    ArcNode *p;    int v1;    v1 = LocateVex(G, v); /* v1为顶点v在图G中的序号 */    p = G.vertices[v1].firstarc;    if (p)        return p-&gt;adjvex;    else        return -1;}int NextAdjVex(ALGraph G, VertexType v, VertexType w) { /* 初始条件: 图G存在,v是G中某个顶点,w是v的邻接顶点 *//* 操作结果: 返回v的(相对于w的)下一个邻接顶点的序号。 *//* 若w是v的最后一个邻接点,则返回-1 */    ArcNode *p;    int v1, w1;    v1 = LocateVex(G, v); /* v1为顶点v在图G中的序号 */    w1 = LocateVex(G, w); /* w1为顶点w在图G中的序号 */    p = G.vertices[v1].firstarc;    while (p &amp;&amp; p-&gt;adjvex != w1) /* 指针p不空且所指表结点不是w */        p = p-&gt;nextarc;    if (!p || !p-&gt;nextarc) /* 没找到w或w是最后一个邻接点 */        return -1;    else /* p-&gt;adjvex==w */        return p-&gt;nextarc-&gt;adjvex; /* 返回v的(相对于w的)下一个邻接顶点的序号 */}/*深度遍历*/int visited[MAX_VERTEX_NUM]; /* 访问标志数组(全局量),未访问标记0，访问标记1 */void (*VisitFunc)(char *v); /* 函数变量(全局量) */void DFS(ALGraph G, int v) {/* 从第v个顶点出发递归地深度优先遍历图G。算法7.5 *//* 设置访问标志为TRUE(已访问) *//* 访问第v个顶点 *//* 对v的尚未访问的邻接点w递归调用DFS */    if (visited[v]) return; //如果被访问过，则返回上层    visited[v] = 1;    for (int w = FirstAdjVex(G, G.vertices[v].data);         w &gt;= 0; w = NextAdjVex(G, G.vertices[v].data, G.vertices[w].data)) {        DFS(G, w);        VisitFunc(G.vertices[v].data);    }}void DFSTraverse(ALGraph G, void(*Visit)(char *)) { /* 对图G作深度优先遍历。算法7.4 *//* 使用全局变量VisitFunc,使DFS不必设函数指针参数 *//* 访问标志数组初始化 *//* 对尚未访问的顶点调用DFS */    VisitFunc = Visit;    for (int i = 0; i &lt; G.vexnum; ++i) {        visited[i] = 0;    }    for (int j = 0; j &lt; G.vexnum; ++j) {        DFS(G, j);    }    printf(&quot;\n&quot;);}void BFS(ALGraph G) {    queue &lt;int&gt; q;    int pop;    for (int i = 0; i &lt;G.vexnum; ++i) {        visited[i] = 0;    }    for (int j = 0; j &lt; G.vexnum; ++j) {        if (!visited[j]) {  //没被访问过则进队            q.push(j);               VisitFunc(G.vertices[q.front()].data);            visited[j] = 1;            while (!q.empty()) {                pop = q.front();                q.pop();   // 保存出队的元素                // 把和结点相邻的结点push进队                for (int k = FirstAdjVex(G, G.vertices[pop].data);                     k &gt;= 0; k = NextAdjVex(G, G.vertices[pop].data, G.vertices[k].data)) {                    if (!visited[k])                    {                        VisitFunc(G.vertices[k].data);                        visited[k] =1;                        q.push(k);                    }                }            }        }    }}void print(char *i) {    printf(&quot;%s &quot;, i);}int main() {    ALGraph g;    CreateGraph(&amp;g);//    DFSTraverse(g, print);    BFS(g);    return 1;}/*输入格式第一行：输入0到3之间整数(有向图:0,有向网:1,无向图:2,无向网:3)；第二行：输入顶点数和边数；第三行：输入各个顶点的值（字符型，长度〈3）；(遍历从输入的第一个顶点开始)第四行：输入每条弧(边)弧尾和弧头(以空格作为间隔),如果是网还要输入权值；输出格式输出对图深度遍历的结果。输入样例03 3     a b ca bb cc b输出样例a b c */</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;图的遍历&lt;br&gt;
+    
+    </summary>
+    
+      <category term="C" scheme="http://tofun.selfcoding.cn/categories/C/"/>
+    
+    
+      <category term="C" scheme="http://tofun.selfcoding.cn/tags/C/"/>
+    
+      <category term="图" scheme="http://tofun.selfcoding.cn/tags/%E5%9B%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Arukas API获取SS配置</title>
+    <link href="http://tofun.selfcoding.cn/2017/05/24/Arukas-API%E8%8E%B7%E5%8F%96SS%E9%85%8D%E7%BD%AE/"/>
+    <id>http://tofun.selfcoding.cn/2017/05/24/Arukas-API获取SS配置/</id>
+    <published>2017-05-24T11:12:37.000Z</published>
+    <updated>2017-05-24T11:38:02.956Z</updated>
+    
+    <content type="html"><![CDATA[<p>Arukas API with Pyhton<br><a id="more"></a></p><h2 id="Arukas"><a href="#Arukas" class="headerlink" title="Arukas"></a>Arukas</h2><p>  <a href="https://app.arukas.io/" target="_blank" rel="noopener">网站传送门</a></p><p>  免费使用期限是2017.6.30，之后怎么进行收费就看这家公司良不良心了。</p><h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul><li><a href="https://app.arukas.io/" target="_blank" rel="noopener">注册</a></li><li>新建容器</li><li>配置<ul><li>Image: lowid/ss-with-net-speeder:latest</li><li>Instances: 1-10个</li><li>Port： tcp 8888(自己喜欢)</li><li>CMD: -p 8888 -k XXXXXX -m aes-256-cfb</li></ul></li><li>获取API Keys<ul><li>点击左上角 钥匙图标</li><li>选择 Create an API key</li><li>将 Token 和 Secret 覆盖到下面代码 <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2></li></ul></li></ul><pre><code class="python">import requestsimport jsonimport reimport base64Aurkas_token = &#39;Token&#39;  (获取到的Token)Arukas_secret = &#39;Secret&#39;  (获取到的Secret)ss_image_name = re.compile(&#39;lowid/ss-with-net-speeder.*&#39;)re_ss_ip = re.compile(&#39;\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}&#39;)re_pwd_encry = re.compile(&#39;-p 8888 -k (?P&lt;password&gt;.+) -m (?P&lt;encryption&gt;.+)$&#39;)def generate_ss_uri(ss_dict):    config = &#39;{encrypt_method}:{password}@{ip}:{port}&#39;    config = config.format(encrypt_method=ss_dict[&#39;encryption&#39;],                           password=ss_dict[&#39;password&#39;],                           ip=ss_dict[&#39;ip&#39;], port=ss_dict[&#39;port&#39;])    uri = b&#39;ss://&#39; + base64.urlsafe_b64encode(config.encode())    return uri.decode()class ArukasAPI:    def __init__(self, token=Aurkas_token, secret=Arukas_secret):        self.headers = {            &quot;Content-Type: application/vnd.api+json&quot;,            &quot;Accept: application/vnd.api+json&quot;        }        self.token = token        self.secret = secret        self.session = requests.session()        self.url_prefix = &#39;https://app.arukas.io/api/&#39;        self.session.auth = (self.token, self.secret)        self.headers.update(self.headers)        self.ss_set = list()        self.post_headers ={            &#39;Content-Type&#39;: &#39;application/json&#39;        }    def list_apps(self):        res = self.session.get(url=self.url_prefix + &#39;apps&#39;)        apps = self.__parse_res(res)        return apps    def get_app(self, id):        res = self.session.get(url=self.url_prefix + &#39;apps/&#39; + id)        app = self.__parse_res(res)        return app    def get_containers(self):        res = self.session.get(url=self.url_prefix + &#39;containers&#39;)        containers_json = self.__parse_res(res)        # print(containers_json)        return containers_json    def get_ss(self):        containers = self.get_containers()        for container in containers[&#39;data&#39;]:            # 根据镜像名字匹配            cmd = None            if re.fullmatch(ss_image_name, container[&#39;attributes&#39;][&#39;image_name&#39;]):                cmd = re.fullmatch(re_pwd_encry, container[&#39;attributes&#39;][&#39;cmd&#39;])                password = cmd.group(&#39;password&#39;)                encryption = cmd.group(&#39;encryption&#39;)                for ss in container[&#39;attributes&#39;][&#39;port_mappings&#39;]:                    ss_dict = dict()                    ss_dict[&#39;ip&#39;] = re.search(re_ss_ip, ss[0][&#39;host&#39;]).group().replace(&#39;-&#39;, &#39;.&#39;)                    ss_dict[&#39;port&#39;] = ss[0][&#39;service_port&#39;]                    ss_dict[&#39;password&#39;] = password                    ss_dict[&#39;encryption&#39;] = encryption                    ss_dict[&#39;uri&#39;] = generate_ss_uri(ss_dict)                    self.ss_set.append(ss_dict)    def __parse_res(self, res):        res.encoding = &#39;utf-8&#39;        return res.json()    def post_to_site(self):        data = dict()        counter = 1        session = requests.session()        session.headers.update(self.post_headers)        for ss in self.ss_set:            print(counter)            counter += 1            data[&#39;content&#39;] = ss[&#39;uri&#39;]            json_data = json.dumps(data)            res = session.post(url=&#39;http://tofun.online/api/postmessage&#39;, data=json_data)            if res.status_code == 201:                print(&#39;successfully&#39;)instance = ArukasAPI()# instance.list_apps()# instance.get_app(id=&#39;5bfda19b-72d1-417a-a5ed-06a8ee0f54f4&#39;)# instance.get_containers()# instance.container_detail(id=&#39;8cf67f03-83d4-4693-9287-ece7babe6126&#39;)instance.get_ss()instance.post_to_site()# print(instance.ss_set)</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Arukas API with Pyhton&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/categories/Python/"/>
+    
+    
+      <category term="python" scheme="http://tofun.selfcoding.cn/tags/python/"/>
+    
+      <category term="Arukas" scheme="http://tofun.selfcoding.cn/tags/Arukas/"/>
+    
+      <category term="爬虫" scheme="http://tofun.selfcoding.cn/tags/%E7%88%AC%E8%99%AB/"/>
+    
+      <category term="ss" scheme="http://tofun.selfcoding.cn/tags/ss/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>队列应用-银行排队</title>
+    <link href="http://tofun.selfcoding.cn/2017/05/22/%E9%98%9F%E5%88%97%E5%BA%94%E7%94%A8-%E9%93%B6%E8%A1%8C%E6%8E%92%E9%98%9F/"/>
+    <id>http://tofun.selfcoding.cn/2017/05/22/队列应用-银行排队/</id>
+    <published>2017-05-22T13:17:12.000Z</published>
+    <updated>2017-05-22T13:29:53.834Z</updated>
+    
+    <content type="html"><![CDATA[<p>队列的应用——银行客户平均等待时间<br><a id="more"></a></p><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><blockquote><p>8590 队列的应用——银行客户平均等待时间<br>时间限制:1000MS  内存限制:1000K<br>提交次数:2956 通过次数:1424</p><p>题型: 编程题   语言: G++;GCC<br>Description<br>队列的基本操作如下：</p><p>#include&lt;malloc.h&gt;</p><p>#include&lt;stdio.h&gt;</p><p>#include&lt;stdlib.h&gt;</p><p>#define OK 1</p><p>#define ERROR 0<br>typedef int Status; // Status是函数的类型,其值是函数结果状态代码，如OK等<br>typedef int QElemType;</p><p>#define MAXQSIZE 100 // 最大队列长度(对于循环队列，最大队列长度要减1)</p><p>typedef struct<br>{<br>   QElemType *base; // 初始化的动态分配存储空间<br>   int front; // 头指针,若队列不空,指向队列头元素<br>   int rear; // 尾指针,若队列不空,指向队列尾元素的下一个位置<br> }SqQueue;</p><p>Status InitQueue(SqQueue &amp;Q)<br>{<br>// 构造一个空队列Q，该队列预定义大小为MAXQSIZE<br>  Q.base=(QElemType<em>)malloc(MAXQSIZE</em>sizeof(QElemType));<br>  if(!Q.base) exit(1);<br>  Q.rear=Q.front=0;<br>  return OK;<br>}</p><p>Status EnQueue(SqQueue &amp;Q,QElemType e)<br>{<br>// 插入元素e为Q的新的队尾元素<br>   if((Q.rear+1)%MAXQSIZE==Q.front) return ERROR;<br>   Q.base[Q.rear]=e;<br>   Q.rear=(Q.rear+1)%MAXQSIZE;<br>   return OK;<br>}</p><p>Status DeQueue(SqQueue &amp;Q, QElemType &amp;e)<br>{<br>// 若队列不空, 则删除Q的队头元素, 用e返回其值, 并返回OK; 否则返回ERROR<br>   if(Q.front==Q.rear) return ERROR;<br>   e=Q.base[Q.front];<br>   Q.front=(Q.front+1)%MAXQSIZE;<br>   return OK;<br>}</p><p>Status GetHead(SqQueue Q, QElemType &amp;e)<br>{<br>// 若队列不空，则用e返回队头元素，并返回OK，否则返回ERROR<br>  if(Q.front==Q.rear) return ERROR;<br>  e=Q.base[Q.front];<br>  return OK;<br>}</p><p>int QueueLength(SqQueue Q)<br>{<br>// 返回Q的元素个数<br>  return Q.rear%MAXQSIZE-Q.front%MAXQSIZE;<br>}<br>某银行有一个客户办理业务站，在一天内随机地有客户到达，设每位客户的业务办理时间是某个范围内的值。设只有一个窗口，一位业务人员，要求程序模拟统计在<br>一天时间内，所有客户的平均等待时间。模拟数据按客户到达的先后顺序依次由键盘输入，对应每位客户有两个数据，到达时刻和需要办理业务的时间。</p><p>输入格式<br>第一行：一天内的客户总人数n<br>第二行：第一个客户的到达时刻和需要办理业务的时间<br>第三行：第二个客户的到达时刻和需要办理业务的时间<br>……<br>第n行：第n - 1个客户的到达时刻和需要办理业务的时间<br>第n + 1行：第n 个客户的到达时刻和需要办理业务的时间</p><p>输出格式<br>第一行：所有客户的平均等待时间（精确到小数点后2位）</p><p>输入样例<br>3<br>1 3<br>2 1<br>3 5</p><p>输出样例<br>1.33</p></blockquote><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">Status main() {    double sum = 0;    int arrive = 0;  //记录前一个人的到达时间，开始设为0    int time = 0;   //记录前一个人的办理时间，开始设为0    int n;    int e;    int a;    int b;    SqQueue Q;    InitQueue(Q);    scanf(&quot;%d&quot;, &amp;n);    for (int i = 0; i &lt; n; i++) {        scanf(&quot;%d%d&quot;, &amp;a, &amp;b);        EnQueue(Q, a);        EnQueue(Q, b);    }    while (QueueLength(Q)) {        if ((arrive + time) &lt;= Q.base[Q.front]) { //不用等            DeQueue(Q, arrive);            DeQueue(Q, time);        } else {  //如果要等，把arrive 设为前面的人的到达时间+办理时间            sum += arrive + time - Q.base[Q.front];            arrive = arrive + time;            DeQueue(Q, e);            DeQueue(Q, time);        }    }    printf(&quot;%.2lf&quot;, sum / n);}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;队列的应用——银行客户平均等待时间&lt;br&gt;
+    
+    </summary>
+    
+      <category term="C" scheme="http://tofun.selfcoding.cn/categories/C/"/>
+    
+    
+      <category term="数据结构， 队列" scheme="http://tofun.selfcoding.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8C-%E9%98%9F%E5%88%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C语言 文件操作函数</title>
+    <link href="http://tofun.selfcoding.cn/2017/05/22/C%E8%AF%AD%E8%A8%80-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0/"/>
+    <id>http://tofun.selfcoding.cn/2017/05/22/C语言-文件操作函数/</id>
+    <published>2017-05-22T12:58:45.000Z</published>
+    <updated>2017-05-23T15:41:14.225Z</updated>
+    
+    <content type="html"><![CDATA[<p>fscanf fprintf fwrite fread fseek ftell<br><a id="more"></a></p><h2 id="涉及函数"><a href="#涉及函数" class="headerlink" title="涉及函数"></a>涉及函数</h2><ul><li>#include “stdio.h”<ul><li>int <a href="http://www.cplusplus.com/reference/cstdio/fprintf/?kw=fprintf" target="_blank" rel="noopener">fprintf</a>(FILE <em>stream, const char </em>format, … );</li><li>int <a href="http://www.cplusplus.com/reference/cstdio/fscanf/?kw=fscanf" target="_blank" rel="noopener">fscanf</a> ( FILE <em> stream, const char </em> format, … );<ul><li>特性：和scanf一样以空格分隔</li></ul></li><li>size_t <a href="http://www.cplusplus.com/reference/cstdio/fwrite/?kw=fwrite" target="_blank" rel="noopener">fwrite</a> ( const void <em> ptr, size_t size, size_t count, FILE </em> stream ); </li><li>size_t <a href="http://www.cplusplus.com/reference/cstdio/fread/?kw=fread" target="_blank" rel="noopener">fread</a> ( void <em> ptr, size_t size, size_t count, FILE </em> stream );</li><li>int <a href="http://www.cplusplus.com/reference/cstdio/fseek/?kw=fseek" target="_blank" rel="noopener">fseek</a> ( FILE * stream, long int offset, int origin );</li><li>long int <a href="http://www.cplusplus.com/reference/cstdio/ftell/?kw=ftell" target="_blank" rel="noopener">ftell</a> ( FILE * stream );</li><li>char <em> <a href="http://www.cplusplus.com/reference/cstdio/fgets/?kw=fgets" target="_blank" rel="noopener">fgets</a> ( char </em> str, int num, FILE * stream );</li><li>int <a href="http://www.cplusplus.com/reference/cstdio/fputs/?kw=fputs" target="_blank" rel="noopener">fputs</a> ( const char <em> str, FILE </em> stream );</li></ul></li></ul><pre><code>#include &quot;stdio.h&quot;#define string_length 20typedef struct foo {    int d;    double lf;    char s[string_length];} foo;FILE *fp;void fcanf_and_fprintf_example() {    foo in;    foo out;    fseek(fp, 0, SEEK_END);    &#x2F;*     stack:     如果使用scanf(&quot;%d%lf%s&quot;, &amp;in.d, &amp;in.lf,in.s);     则字符串如果带有空格，只能读取空格前面的子串     原因：fscanf 以空格和换行符为界限分块读取     下面代码相同原理     *&#x2F;    scanf(&quot;%d%lf&quot;, &amp;in.d, &amp;in.lf);    fgets(in.s, string_length, stdin);    fprintf(fp, &quot;%d %lf %s&quot;, in.d, in.lf, in.s);    long size = ftell(fp); &#x2F;&#x2F;文件大小    rewind(fp);  &#x2F;&#x2F;定位到文件开头    while (ftell(fp) &lt; size) {        fscanf(fp, &quot;%d %lf&quot;, &amp;out.d, &amp;out.lf);        fgets(out.s, string_length, fp);        printf(&quot;%d %lf %s\n&quot;, out.d, out.lf, out.s);    }}void fwrite_and_fread_example() {    foo in;    foo out;    fseek(fp, 0, SEEK_END);    scanf(&quot;%d %lf&quot;, &amp;in.d, &amp;in.lf);    fgets(in.s, string_length, stdin);    fwrite(&amp;in, sizeof(foo), 1, fp);    fseek(fp, 0, SEEK_SET);    fread(&amp;out, sizeof(foo), 1, fp);    printf(&quot;%d %lf %s&quot;, out.d, out.lf, out.s);}void fgets_and_fputs_example() {    char in_s[string_length];    char out_s[string_length];    fseek(fp, 0, SEEK_END);    fgets(in_s, string_length, stdin);    &#x2F;&#x2F; 也可以使用gets(in_s);    &#x2F;&#x2F; 不过fscanf更安全    fseek(fp, 0, SEEK_SET);    fputs(in_s, fp);    fgets(out_s, string_length, fp);    printf(&quot;%s&quot;, out_s);}int main() {    fp = fopen(&quot;io.txt&quot;, &quot;w+&quot;);&#x2F;&#x2F;    fcanf_and_fprintf_example();&#x2F;&#x2F;    fwrite_and_fread_example();&#x2F;&#x2F;    fgets_and_fputs_example();    fclose(fp);}</code></pre><p><a>input </a></p><blockquote><p>2345678 6666.666 hello<br><a>file</a><br>12345678 6666.666000 hello<br><a>output </a><br>12345678 6666.666000 hello</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;fscanf fprintf fwrite fread fseek ftell&lt;br&gt;
+    
+    </summary>
+    
+      <category term="C" scheme="http://tofun.selfcoding.cn/categories/C/"/>
+    
+    
+      <category term="文件操作" scheme="http://tofun.selfcoding.cn/tags/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>邻接表的创建</title>
+    <link href="http://tofun.selfcoding.cn/2017/05/18/%E9%82%BB%E6%8E%A5%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA/"/>
+    <id>http://tofun.selfcoding.cn/2017/05/18/邻接表的创建/</id>
+    <published>2017-05-17T16:21:51.000Z</published>
+    <updated>2017-06-20T13:34:35.756Z</updated>
+    
+    <content type="html"><![CDATA[<p>C语言构建邻接表<br><a id="more"></a></p><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h3 id="折腾"><a href="#折腾" class="headerlink" title="折腾"></a>折腾</h3><p>学校oj上DFS题只要求写搜索部分，而且创建邻接表的函数高大上一时间看不明白，写这个算是练练手吧，加深对邻接表的理解。</p><h3 id="邻接矩阵-VS-邻接表"><a href="#邻接矩阵-VS-邻接表" class="headerlink" title="邻接矩阵 VS 邻接表"></a>邻接矩阵 VS 邻接表</h3><table><thead><tr><th>邻接矩阵</th><th>邻接表</th><th></th></tr></thead><tbody><tr><td>相对优点</td><td>建图简单粗暴</td><td>空间复杂度小</td></tr><tr><td>相对缺点</td><td>空间复杂度高</td><td>判重比较麻烦</td></tr></tbody></table><h2 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h2><h3 id="数据结构图"><a href="#数据结构图" class="headerlink" title="数据结构图"></a>数据结构图</h3><p><a><strong>Edge</strong></a></p><table><thead><tr><th>a</th><th>b</th><th>c</th><th>…</th><th>n</th></tr></thead><tbody><tr><td>a</td><td></td><td></td><td></td><td></td></tr><tr><td>b</td><td></td><td></td><td></td><td></td></tr><tr><td>c</td><td></td><td></td><td></td><td></td></tr><tr><td>…</td><td></td><td></td><td></td><td></td></tr><tr><td>n</td><td></td><td></td><td></td></tr></tbody></table><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="cpp">int array[10][10] = {0};void cteate_array() {    char x;    char y;    for (int k = 0; k &lt; edge; k++) {        fflush(stdin);        scanf(&quot;%c %c&quot;, &amp;x, &amp;y);        array[x - &#39;a&#39;][y - &#39;a&#39;] = 1;    }}</code></pre><table><thead><tr><th><a>input</a></th><th></th><th><a>output</a></th><th></th><th></th><th></th></tr></thead><tbody><tr><td>0</td><td></td><td></td><td></td><td>a</td><td>b</td></tr><tr><td>3 3</td><td></td><td></td><td>a</td><td></td><td>1</td></tr><tr><td>a b c</td><td></td><td></td><td>b</td><td></td><td></td></tr><tr><td>a b</td><td></td><td></td><td>c</td><td></td><td>1</td></tr><tr><td>b c</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>c b</td><td></td><td></td><td></td><td></td></tr></tbody></table><h2 id="传统创建邻接表"><a href="#传统创建邻接表" class="headerlink" title="传统创建邻接表"></a>传统创建邻接表</h2><h3 id="数据结构图-1"><a href="#数据结构图-1" class="headerlink" title="数据结构图"></a>数据结构图</h3><p><img src="http://i1.piimg.com/588926/808449b3023af95a.png" alt="image"></p><h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="cpp">#include &lt;iostream&gt;#include &quot;stdio.h&quot;#include &quot;string.h&quot;#include &quot;stdlib.h&quot;using namespace std;typedef char vertex_type[20];int num;int edge;int kind;// kind = 0 : 有向图// kind = 1 ： 无向图typedef struct arcnode {    int cur;    struct arcnode *next;} arcnode, *arcnode_p;typedef struct vnode {    vertex_type data;    struct arcnode *first;} vnode, *nodelist;// 输入data，返回邻接表的curint getnode(vnode *G, char *data) {    int i;    for (i = 0; i &lt; num; i++)        if (strcmp(data, G[i].data) == 0)            return i;    return -1;}void create(vnode *G, int kind) {    for (int i = 0; i &lt; num; i++) {        scanf(&quot;%s&quot;, G[i].data);        G[i].first = NULL;    }    int po;    int nex;    for (int i = 0; i &lt; edge; i++) {        char a[20] = {&#39;\0&#39;};        char b[20] = {&#39;\0&#39;};        scanf(&quot;%s%s&quot;, a, b);        if ((po = getnode(G, a)) &gt;= 0 &amp;&amp; (nex = getnode(G, b)) &gt;= 0) {            arcnode_p new_node;            // 新建结点            new_node = new arcnode;            new_node-&gt;cur = nex;            new_node-&gt;next = NULL;            // 如果头为空，直接链到first            if (G[po].first == NULL)                G[po].first = new_node;            else {                arcnode_p p;                p = G[po].first;                while (p-&gt;next != NULL) {                    p = p-&gt;next;                }                p-&gt;next = new_node;            }            // 如果是无序图            if (kind == 1) {                // 新建结点                new_node = new arcnode;                new_node-&gt;cur = po;                new_node-&gt;next = NULL;                // 如果头为空，直接链到first                if (G[nex].first == NULL)                    G[nex].first = new_node;                else {                    arcnode_p p;                    p = G[nex].first;                    while (p-&gt;next != NULL) {                        p = p-&gt;next;                    }                    p-&gt;next = new_node;                }            }        }    }}int main() {    nodelist G;    scanf(&quot;%d&quot;, &amp;kind);    scanf(&quot;%d%d&quot;, &amp;num, &amp;edge);    G = new vnode[num];    create(G, kind);    arcnode_p p;    for (int i = 0; i &lt; num; i++) {        printf(&quot;%s:   &quot;, G[i].data);        p = G[i].first;        while (p != NULL) {            printf(&quot;%s &quot;, G[p-&gt;cur].data);            p = p-&gt;next;        }    }}</code></pre><table><thead><tr><th><a>input</a></th><th><a>output</a></th></tr></thead><tbody><tr><td>0</td><td>a: b</td></tr><tr><td>3 3</td><td>b: c</td></tr><tr><td>a b c</td><td>c: b</td></tr><tr><td>a b</td><td></td></tr><tr><td>b c</td><td></td></tr><tr><td>c b</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;C语言构建邻接表&lt;br&gt;
+    
+    </summary>
+    
+      <category term="C" scheme="http://tofun.selfcoding.cn/categories/C/"/>
+    
+    
+      <category term="数据结构" scheme="http://tofun.selfcoding.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="邻接表" scheme="http://tofun.selfcoding.cn/tags/%E9%82%BB%E6%8E%A5%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Why I Build This Blog</title>
+    <link href="http://tofun.selfcoding.cn/2017/05/13/Why-I-Build-This-Blog/"/>
+    <id>http://tofun.selfcoding.cn/2017/05/13/Why-I-Build-This-Blog/</id>
+    <published>2017-05-12T16:00:00.000Z</published>
+    <updated>2017-05-22T13:13:22.215Z</updated>
+    
+    <content type="html"><![CDATA[<p>ABOUT ME<br><a id="more"></a></p><h2 id="Why-blog？"><a href="#Why-blog？" class="headerlink" title="Why blog？"></a>Why blog？</h2><ul><li>开源大法好</li><li>用自己的方式写在个人的成长过程，不只是0和1，也有生活</li><li>自学过程中有太多的坑，太多的弯路，把我的毒代码留给别人</li><li>作为一个发泄的地方</li><li>发表自己对某中东西的看法</li></ul><p>引用我的偶像的一句话<br><blockquote><p><strong>Talk is cheap. Show me the code.</strong></p><footer><strong>Linus 2000-08-25</strong><cite><a href="https://lkml.org/lkml/2000/8/25/132" target="_blank" rel="noopener">----A reply in Email</a></cite></footer></blockquote></p><h2 id="目前"><a href="#目前" class="headerlink" title="目前"></a>目前</h2><h3 id=""><a href="#" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-6-20</p></blockquote></h3><p>拥有第一台个人电脑</p><h3 id="-1"><a href="#-1" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-7-.</p></blockquote></h3><p>接触第一个编程语言: Python</p><h3 id="-2"><a href="#-2" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2016-9-2</p></blockquote></h3><p>进入大学</p><h3 id="-3"><a href="#-3" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>2017-5-13</p></blockquote></h3><p>写第一篇博客</p><h3 id="-4"><a href="#-4" class="headerlink" title=""></a><blockquote class="pullquote timeline"><p>现在</p></blockquote></h3><p>正在努力成为大神</p><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><blockquote class="pullquote"><p><strong>人生苦短，我用Python</strong></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ABOUT ME&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Author" scheme="http://tofun.selfcoding.cn/categories/Author/"/>
+    
+    
+      <category term="set-off" scheme="http://tofun.selfcoding.cn/tags/set-off/"/>
+    
+  </entry>
+  
+</feed>
