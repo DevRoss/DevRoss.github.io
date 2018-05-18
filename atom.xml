@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tofun.selfcoding.cn/"/>
-  <updated>2018-05-18T05:16:46.833Z</updated>
+  <updated>2018-05-18T12:39:47.269Z</updated>
   <id>http://tofun.selfcoding.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>APT使用代理</title>
+    <link href="http://tofun.selfcoding.cn/2018/05/18/APT%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/"/>
+    <id>http://tofun.selfcoding.cn/2018/05/18/APT使用代理/</id>
+    <published>2018-05-18T12:37:00.000Z</published>
+    <updated>2018-05-18T12:39:47.269Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>博主在使用Ubuntu的apt的时候遇到容易掉包的资源，此时就需要使用代理来加速下载。</p><h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><p>使用socks5代理</p><pre><code>sudo apt install xxx -o Acquire::http::proxy=&quot;socks5h://127.0.0.1:1080/&quot;</code></pre><p>使用http代理</p><pre><code>sudo apt install xxx -o Acquire::http::proxy=&quot;http://127.0.0.1:1080/&quot;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;博主在使用Ubuntu的apt的时候遇到容易掉包的资源，此时就需要使用代理来加速下载。&lt;/p&gt;
+&lt;h1 id=&quot;实战&quot;&gt;&lt;a href=&quot;#
+      
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://tofun.selfcoding.cn/categories/Linux/"/>
+    
+    
+      <category term="工具" scheme="http://tofun.selfcoding.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Python-文件中有非UTF-8字符的处理方法</title>
