@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tofun.selfcoding.cn/2017/05/18/%E9%82%BB%E6%8E%A5%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA/</loc>
+    
+    <lastmod>2018-05-21T04:14:32.788Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://tofun.selfcoding.cn/2017/07/23/%E7%94%A8cx-freeze%E6%89%93%E5%8C%85scrapy/</loc>
+    
+    <lastmod>2018-05-21T04:14:23.117Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://tofun.selfcoding.cn/2018/05/18/APT%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86/</loc>
     
     <lastmod>2018-05-18T12:39:47.269Z</lastmod>
@@ -30,13 +44,6 @@
   </url>
   
   <url>
-    <loc>http://tofun.selfcoding.cn/2017/07/23/%E7%94%A8cx-freeze%E6%89%93%E5%8C%85scrapy/</loc>
-    
-    <lastmod>2017-08-03T11:50:17.575Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://tofun.selfcoding.cn/2017/07/24/Centos7-%E5%AE%89%E8%A3%85Python3-x/</loc>
     
     <lastmod>2017-07-25T02:26:34.668Z</lastmod>
@@ -54,13 +61,6 @@
     <loc>http://tofun.selfcoding.cn/2017/06/20/KMP%E7%AE%97%E6%B3%95/</loc>
     
     <lastmod>2017-06-20T13:41:21.103Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://tofun.selfcoding.cn/2017/05/18/%E9%82%BB%E6%8E%A5%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA/</loc>
-    
-    <lastmod>2017-06-20T13:34:35.756Z</lastmod>
     
   </url>
   
