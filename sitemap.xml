@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tofun.selfcoding.cn/2017/08/03/Ubuntu(16,17)18%E9%85%8D%E7%BD%AETensorflow-gpu%E7%8E%AF%E5%A2%83/</loc>
+    
+    <lastmod>2018-05-21T05:06:42.563Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://tofun.selfcoding.cn/2017/05/18/%E9%82%BB%E6%8E%A5%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA/</loc>
     
     <lastmod>2018-05-21T04:24:52.845Z</lastmod>
@@ -33,13 +40,6 @@
     <loc>http://tofun.selfcoding.cn/2018/05/18/Python-%E6%96%87%E4%BB%B6%E4%B8%AD%E6%9C%89%E9%9D%9EUTF-8%E5%AD%97%E7%AC%A6%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2018-05-18T05:16:46.833Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://tofun.selfcoding.cn/2017/08/03/Ubuntu17-04%E9%85%8D%E7%BD%AETensorflow-gpu%E7%8E%AF%E5%A2%83/</loc>
-    
-    <lastmod>2017-08-03T14:18:22.949Z</lastmod>
     
   </url>
   
