@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://tofun.selfcoding.cn/"/>
-  <updated>2018-10-31T14:37:28.528Z</updated>
+  <updated>2018-10-31T15:42:11.460Z</updated>
   <id>http://tofun.selfcoding.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>说说tensorflow使用Saver踩过的坑</title>
+    <link href="http://tofun.selfcoding.cn/2018/10/31/%E8%AF%B4%E8%AF%B4tensorflow%E4%BD%BF%E7%94%A8Saver%E8%B8%A9%E8%BF%87%E7%9A%84%E5%9D%91/"/>
+    <id>http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/</id>
+    <published>2018-10-31T14:56:18.000Z</published>
+    <updated>2018-10-31T15:42:11.460Z</updated>
+    
+    <content type="html"><![CDATA[<p>tf.train.Saver的一种尝试</p><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>来自于一个神奇的bug，模型第一次训练的时候能正常跑，但是通过<a href="https://www.tensorflow.org/api_docs/python/tf/train/Saver" target="_blank" rel="noopener">tf.train.Saver</a> 的restore恢复checkpoint之后就抛出<u>Attempting to use uninitialized value xxxxxx</u>，最后发现原来是saver定义时候的位置出现问题。</p><h1 id="代码实验"><a href="#代码实验" class="headerlink" title="代码实验"></a>代码实验</h1><p>以下代码模拟了一次模型保存和恢复的使用情况。首先是定义了计算图，初始化后保存模型，再清除计算图，之后再恢复checkpoint。</p><pre><code class="python">#!/usr/bin/python3# -*- coding: utf-8 -*-# Created by Ross on 18-10-31import osimport tensorflow as tffrom tensorflow.python.tools.inspect_checkpoint import print_tensors_in_checkpoint_filedef create_graph():    global a    global saver    global b    a = tf.get_variable(&#39;a&#39;, shape=[2, 2], initializer=tf.initializers.random_normal())    saver = tf.train.Saver(name=&#39;saver&#39;)  # 定义在a的后面，b的前面    b = tf.get_variable(&#39;b&#39;, shape=[3, 3], initializer=tf.initializers.random_normal())if __name__ == &#39;__main__&#39;:    with tf.Session() as sess:        create_graph()  # 定义计算图        sess.run(tf.global_variables_initializer())  # 初始化计算图        if not os.path.exists(&#39;tmp&#39;):            os.mkdir(&#39;tmp&#39;)        saver.save(sess, &#39;tmp/tmp.ckpt&#39;)  # 保存checkpoint    tf.reset_default_graph()  # 清除计算图    with tf.Session() as sess:        create_graph()  # 再定义计算图        print_tensors_in_checkpoint_file(&#39;tmp/tmp.ckpt&#39;, tensor_name=&#39;&#39;, all_tensors=True)        saver.restore(sess, &#39;tmp/tmp.ckpt&#39;)  # 恢复checkpoint        print(sess.run(b))  # 尝试运行b计算</code></pre><p>运行后报错</p><pre><code class="shell">tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to use uninitialized value b     [[{{node b/_2}} = _Send[T=DT_FLOAT, client_terminated=false, recv_device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;, send_device=&quot;/job:localhost/replica:0/task:0/device:GPU:0&quot;, send_device_incarnation=1, tensor_name=&quot;edge_4_b&quot;, _device=&quot;/job:localhost/replica:0/task:0/device:GPU:0&quot;](b)]]     [[{{node b/_3}} = _Recv[_start_time=0, client_terminated=false, recv_device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;, send_device=&quot;/job:localhost/replica:0/task:0/device:GPU:0&quot;, send_device_incarnation=1, tensor_name=&quot;edge_4_b&quot;, tensor_type=DT_FLOAT, _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;]()]]</code></pre><h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>原因是saver定义在了a之后和b之前，saver定义的时候默认会将已有的计算图保存，等到使用saver.save()的时候会将saver对象内保存的计算图保存到磁盘中，因此saver保存的计算图中没有b变量，所以恢复checkpoint的时候不会恢复b变量，因此运行计算b的时候会抛出变量未初始化的错误。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;tf.train.Saver的一种尝试&lt;/p&gt;
+&lt;h1 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h1&gt;&lt;p&gt;来自于一个神奇的bug，模型第一次训练的时候能正常跑，但是通过&lt;a href=&quot;htt
+      
+    
+    </summary>
+    
+      <category term="Tensorflow" scheme="http://tofun.selfcoding.cn/categories/Tensorflow/"/>
+    
+    
+      <category term="Python" scheme="http://tofun.selfcoding.cn/tags/Python/"/>
+    
+      <category term="Tensorflow" scheme="http://tofun.selfcoding.cn/tags/Tensorflow/"/>
+    
+  </entry>
   
   <entry>
     <title>Ubuntu安装日文分词工具MeCab</title>
@@ -118,9 +146,9 @@ sudo
     
       <category term="Python" scheme="http://tofun.selfcoding.cn/tags/Python/"/>
     
-      <category term="Ubuntu" scheme="http://tofun.selfcoding.cn/tags/Ubuntu/"/>
-    
       <category term="Tensorflow" scheme="http://tofun.selfcoding.cn/tags/Tensorflow/"/>
+    
+      <category term="Ubuntu" scheme="http://tofun.selfcoding.cn/tags/Ubuntu/"/>
     
   </entry>
   

@@ -45,7 +45,7 @@
     
     <title>
         
-            标签: scrapy | 
+            说说tensorflow使用Saver踩过的坑 | 
         
         Playground
     </title>
@@ -56,7 +56,7 @@
 
     <meta name="format-detection" content="telephone=no"/>
     <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="Python,机器学习,machine-learning">
+    <meta name="keywords" content="Python,机器学习,machine-learning,Python,Tensorflow">
     <meta name="theme-color" content="#0097A7">
 
     <!-- Disable Fucking Bloody Baidu Tranformation -->
@@ -217,7 +217,7 @@
     <!-- WebAPP Icons -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Playground">
-    <meta name="msapplication-starturl" content="http://tofun.selfcoding.cn/tags/scrapy/">
+    <meta name="msapplication-starturl" content="http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/">
     <meta name="msapplication-navbutton-color" content="#0097A7">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Playground">
@@ -232,13 +232,16 @@
     
 
     <!-- The Open Graph protocol -->
-    <meta property="og:url" content="http://tofun.selfcoding.cn/tags/scrapy/">
+    <meta property="og:url" content="http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="标签: scrapy | Playground">
+    <meta property="og:title" content="说说tensorflow使用Saver踩过的坑 | Playground">
     <meta property="og:image" content="/img/favicon.png">
     <meta property="og:description" content="">
-    
+    <meta property="og:article:tag" content="Python"> <meta property="og:article:tag" content="Tensorflow"> 
 
+    
+        <meta property="article:published_time" content="Wed Oct 31 2018 22:56:18 GMT+0800">
+        <meta property="article:modified_time" content="Wed Oct 31 2018 23:42:11 GMT+0800">
     
 
     <!-- The Twitter Card protocol -->
@@ -246,13 +249,43 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://tofun.selfcoding.cn/tags/scrapy/index.html" />
+        <link rel="canonical" href="http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/index.html" />
     
 
     <!-- Structured-data for SEO -->
     
         
 
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": "http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/index.html",
+    "headline": "说说tensorflow使用Saver踩过的坑",
+    "datePublished": "Wed Oct 31 2018 22:56:18 GMT+0800",
+    "dateModified": "Wed Oct 31 2018 23:42:11 GMT+0800",
+    "author": {
+        "@type": "Person",
+        "name": "Ross",
+        "image": {
+            "@type": "ImageObject",
+            "url": "/img/avatar.png"
+        },
+        "description": "Talk is cheap, show me the code!"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Playground",
+        "logo": {
+            "@type":"ImageObject",
+            "url": "/img/favicon.png"
+        }
+    },
+    "keywords": ",Python,TensorflowPython,机器学习,machine-learning",
+    "description": "",
+}
+</script>
 
 
     
@@ -286,98 +319,263 @@
                         </button>
                     
 
-                    <!-- Index Module -->
-<div class="material-index mdl-grid">
-    
-    <div class="locate-thumbnail-symbol"></div>
+                    <!-- Post TOC -->
 
-    <!-- Pin on top -->
+    
+    <!-- Back Button -->
+    <!--
+    <div class="material-back" id="backhome-div" tabindex="0">
+        <a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
+           href="#" onclick="window.history.back();return false;"
+           target="_self"
+           role="button"
+           data-upgraded=",MaterialButton,MaterialRipple">
+            <i class="material-icons" role="presentation">arrow_back</i>
+            <span class="mdl-button__ripple-container">
+                <span class="mdl-ripple"></span>
+            </span>
+        </a>
+    </div>
+    -->
+
+
+    <!-- Left aligned menu below button -->
+    
+    
+    <button id="post-toc-trigger-btn"
+        class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">format_list_numbered</i>
+    </button>
+
+    <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码实验"><span class="post-toc-number">2.</span> <span class="post-toc-text">代码实验</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#分析"><span class="post-toc-number">3.</span> <span class="post-toc-text">分析</span></a></li></ol>
+    </ul>
     
 
-    <!-- Normal Post -->
-    
-        
-            
-                <!-- Paradox Thumbnail -->
-                <div class="post_entry-module mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col fade out">
-    <!-- Post Thumbnail -->
+
+
+
+<!-- Layouts -->
+
+    <!-- Post Module -->
+    <div class="material-post_container">
+
+        <div class="material-post mdl-grid">
+            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+
+                <!-- Post Header(Thumbnail & Title) -->
+                
+    <!-- Paradox Post Header -->
     
         
             <!-- Random Thumbnail -->
             <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-        
-    
+            <script type="text/ls-javascript" id="post-thumbnail-script">
+    var randomNum = Math.floor(Math.random() * 19 + 1);
 
-        <!-- Post Title -->
-        <p class="article-headline-p"><a href="/2017/07/23/用cx-freeze打包scrapy/">用cx_freeze打包scrapy</a></p>
-    </div>
-
-    <!-- Post Excerpt -->
-    <div class="mdl-color-text--grey-600 mdl-card__supporting-text post_entry-content">
-        
-            坑爹Windows环境配置，以及setup脚本的编写
-        
-        &nbsp;&nbsp;&nbsp;
-        <span>
-            <a href="/2017/07/23/用cx-freeze打包scrapy/" target="_self">阅读全文</a>
-        </span>
-    </div>
-    <!-- Post_entry Info-->
-    <div id="post_entry-info">
-        <div id="post_entry-left-info" class="mdl-card__supporting-text meta mdl-color-text--grey-600 ">
-            <!-- Author Avatar -->
-            <div id="author-avatar">
-                <img src="/img/avatar.png" width="44px" height="44px" alt="Ross's avatar">
-            </div>
-            <div>
-                <strong>Ross</strong>
-                <span>7月 23, 2017</span>
-            </div>
-        </div>
-        <div id="post_entry-right-info">
-          
-              <!-- Category -->
-              <span class="post_entry-category">
-                  <a class="post_category-link" href="/categories/Python/">Python</a>
-              </span>
-            
-
-            
-
-            
-
-            <!-- Post Views -->
-            <span class="post_entry-views">
-            </span>
-        </div>
-    </div>
-</div>
-
-            
-            
-        
-    
-
-    
-
-    
-        <script type="text/ls-javascript" id="thumbnail-script">
-    var randomNum;
-
-    var locatePost = $('.locate-thumbnail-symbol').next();
-    for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
-
-        locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
-
-        locatePost = locatePost.next();
-    }
 </script>
 
+        
+    
+            <p class="article-headline-p">
+                说说tensorflow使用Saver踩过的坑
+            </p>
+        </div>
+
+
+
+
+
+                
+                    <!-- Paradox Post Info -->
+                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+
+    <!-- Author Avatar -->
+    <div id="author-avatar">
+        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
+    </div>
+    <!-- Author Name & Date -->
+    <div>
+        <strong>Ross</strong>
+        <span>10月 31, 2018</span>
+    </div>
+
+    <div class="section-spacer"></div>
+
+    <!-- Favorite -->
+    <!--
+        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
+            <i class="material-icons" role="presentation">favorite</i>
+            <span class="visuallyhidden">favorites</span>
+        </button>
+    -->
+
+    <!-- Qrcode -->
+    
+
+    <!-- Tags (bookmark) -->
+    
+    <button id="article-functions-viewtags-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+        <i class="material-icons" role="presentation">bookmark</i>
+        <span class="visuallyhidden">bookmark</span>
+    </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-functions-viewtags-button">
+        <li class="mdl-menu__item">
+        <a class="post_tag-link" href="/tags/Python/">Python</a></li><li class="mdl-menu__item"><a class="post_tag-link" href="/tags/Tensorflow/">Tensorflow</a>
+    </ul>
+    
+
+    <!-- Share -->
+    
+        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+    <i class="material-icons" role="presentation">share</i>
+    <span class="visuallyhidden">share</span>
+</button>
+<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
+    
+
+    
+
+    <!-- Share Weibo -->
+    
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=说说tensorflow使用Saver踩过的坑&url=http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/index.html&pic=http://tofun.selfcoding.cn/img/favicon.png&searchPic=false&style=simple" target="_blank">
+            <li class="mdl-menu__item">
+                分享到微博
+            </li>
+        </a>
+    
+
+    <!-- Share Twitter -->
+    
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=说说tensorflow使用Saver踩过的坑&url=http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/index.html&via=Ross" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Twitter
+            </li>
+        </a>
+    
+
+    <!-- Share Facebook -->
+    
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Facebook
+            </li>
+        </a>
+    
+
+    <!-- Share Google+ -->
+    
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://tofun.selfcoding.cn/2018/10/31/说说tensorflow使用Saver踩过的坑/index.html" target="_blank">
+            <li class="mdl-menu__item">
+                分享到 Google+
+            </li>
+        </a>
+    
+
+    <!-- Share LinkedIn -->
+    
+
+    <!-- Share QQ -->
+    
+
+    <!-- Share Telegram -->
+    
+</ul>
+
     
 </div>
+
+                
+
+                <!-- Post Content -->
+                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
+    
+        <p>tf.train.Saver的一种尝试</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>来自于一个神奇的bug，模型第一次训练的时候能正常跑，但是通过<a href="https://www.tensorflow.org/api_docs/python/tf/train/Saver" target="_blank" rel="noopener">tf.train.Saver</a> 的restore恢复checkpoint之后就抛出<u>Attempting to use uninitialized value xxxxxx</u>，最后发现原来是saver定义时候的位置出现问题。</p>
+<h1 id="代码实验"><a href="#代码实验" class="headerlink" title="代码实验"></a>代码实验</h1><p>以下代码模拟了一次模型保存和恢复的使用情况。首先是定义了计算图，初始化后保存模型，再清除计算图，之后再恢复checkpoint。</p>
+<pre><code class="python">#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# Created by Ross on 18-10-31
+import os
+
+import tensorflow as tf
+from tensorflow.python.tools.inspect_checkpoint import print_tensors_in_checkpoint_file
+
+
+def create_graph():
+    global a
+    global saver
+    global b
+    a = tf.get_variable(&#39;a&#39;, shape=[2, 2], initializer=tf.initializers.random_normal())
+    saver = tf.train.Saver(name=&#39;saver&#39;)  # 定义在a的后面，b的前面
+    b = tf.get_variable(&#39;b&#39;, shape=[3, 3], initializer=tf.initializers.random_normal())
+
+
+if __name__ == &#39;__main__&#39;:
+    with tf.Session() as sess:
+        create_graph()  # 定义计算图
+        sess.run(tf.global_variables_initializer())  # 初始化计算图
+
+        if not os.path.exists(&#39;tmp&#39;):
+            os.mkdir(&#39;tmp&#39;)
+        saver.save(sess, &#39;tmp/tmp.ckpt&#39;)  # 保存checkpoint
+
+    tf.reset_default_graph()  # 清除计算图
+
+    with tf.Session() as sess:
+        create_graph()  # 再定义计算图
+        print_tensors_in_checkpoint_file(&#39;tmp/tmp.ckpt&#39;, tensor_name=&#39;&#39;, all_tensors=True)
+        saver.restore(sess, &#39;tmp/tmp.ckpt&#39;)  # 恢复checkpoint
+        print(sess.run(b))  # 尝试运行b计算
+
+</code></pre>
+<p>运行后报错</p>
+<pre><code class="shell">tensorflow.python.framework.errors_impl.FailedPreconditionError: Attempting to use uninitialized value b
+     [[{{node b/_2}} = _Send[T=DT_FLOAT, client_terminated=false, recv_device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;, send_device=&quot;/job:localhost/replica:0/task:0/device:GPU:0&quot;, send_device_incarnation=1, tensor_name=&quot;edge_4_b&quot;, _device=&quot;/job:localhost/replica:0/task:0/device:GPU:0&quot;](b)]]
+     [[{{node b/_3}} = _Recv[_start_time=0, client_terminated=false, recv_device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;, send_device=&quot;/job:localhost/replica:0/task:0/device:GPU:0&quot;, send_device_incarnation=1, tensor_name=&quot;edge_4_b&quot;, tensor_type=DT_FLOAT, _device=&quot;/job:localhost/replica:0/task:0/device:CPU:0&quot;]()]]
+</code></pre>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>原因是saver定义在了a之后和b之前，saver定义的时候默认会将已有的计算图保存，等到使用saver.save()的时候会将saver对象内保存的计算图保存到磁盘中，因此saver保存的计算图中没有b变量，所以恢复checkpoint的时候不会恢复b变量，因此运行计算b的时候会抛出变量未初始化的错误。</p>
+
+        
+    
+
+    
+</div>
+
+
+                
+
+                <!-- Post Comments -->
+                
+                    
+                
+            </div>
+
+            <!-- Post Prev & Next Nav -->
+            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
+    <!-- Prev Nav -->
+    
+
+    <!-- Section Spacer -->
+    <div class="section-spacer"></div>
+
+    <!-- Next Nav -->
+    
+        <a href="/2018/10/31/Ubuntu安装日文分词工具MeCab/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
+    
+</nav>
+
+        </div>
+    </div>
+
 
 
                     
@@ -523,6 +721,14 @@ It will not impact the appearance and can give developers a lot of support :)
 </aside>
 
                     
+
+                    
+                        <!-- Footer Top Button -->
+                        <div id="back-to-top" class="toTop-wrap">
+    <a href="#top" class="toTop">
+        <i class="material-icons footer_top-i">expand_less</i>
+    </a>
+</div>
 
                     
 
