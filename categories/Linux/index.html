@@ -102,7 +102,7 @@
   }
 
   a {
-    color: #00838F;
+    color: #ee4939;
   }
 
   .mdl-card__media,
@@ -112,13 +112,13 @@
   #scheme-Paradox .sidebar_archives-count,
   #scheme-Paradox .sidebar-colored .sidebar-header,
   #scheme-Paradox .sidebar-colored .sidebar-badge{
-    background-color: #0097A7 !important;
+    background-color: #ee4939 !important;
   }
 
   /* Sidebar User Drop Down Menu Text Color */
   #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
   #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
-    color: #0097A7 !important;
+    color: #ee4939 !important;
   }
 
   #post_entry-right-info,
@@ -131,29 +131,29 @@
   .sidebar-colored .sidebar-nav > .open > a:hover,
   .sidebar-colored .sidebar-nav > .open > a:focus,
   #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
-    color: #0097A7 !important;
+    color: #ee4939 !important;
   }
 
   .toTop {
-    background: #757575 !important;
+    background: #f8ee5d !important;
   }
 
   .material-layout .material-post>.material-nav,
   .material-layout .material-index>.material-nav,
   .material-nav a {
-    color: #757575;
+    color: #f8ee5d;
   }
 
   #scheme-Paradox .MD-burger-layer {
-    background-color: #757575;
+    background-color: #f8ee5d;
   }
 
   #scheme-Paradox #post-toc-trigger-btn {
-    color: #757575;
+    color: #f8ee5d;
   }
 
   .post-toc a:hover {
-    color: #00838F;
+    color: #ee4939;
     text-decoration: underline;
   }
 
@@ -164,12 +164,7 @@
 
     <style>
       body{
-        background-color: #F5F5F5;
-      }
-
-      /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
-        background-color: #fff;
+        background-image: url(/img/bg.bmp);
       }
     </style>
 
@@ -433,10 +428,10 @@
 
     var locatePost = $('.locate-thumbnail-symbol').next();
     for(var i = 0; i < 10; i++) {
-        randomNum = Math.floor(Math.random() * 19 + 1);
+        randomNum = Math.floor(Math.random() * 6 + 1);
 
         locatePost.children('.post_thumbnail-random').attr('id', 'random_thumbnail-'+randomNum);
-        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
+        locatePost.children('.post_thumbnail-random').attr('data-original', '/img/random/neon-' + randomNum + '.png');
     $('.post_thumbnail-random').addClass('lazy');
 
         locatePost = locatePost.next();
